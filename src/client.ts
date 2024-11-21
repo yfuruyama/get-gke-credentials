@@ -332,6 +332,7 @@ export class ClusterClient {
     if (opts.useInternalIP) {
       endpoint = cluster.data.privateClusterConfig.privateEndpoint;
     }
+    const isDNSBasedEndpoint = endpoint.endsWith('gke.goog')
 
     const token = await this.getToken();
     const auth = opts.useAuthProvider
@@ -344,7 +345,7 @@ export class ClusterClient {
       'clusters': [
         {
           cluster: {
-            ...(!connectGatewayEndpoint && {
+            ...(!connectGatewayEndpoint && !isDNSBasedEndpoint && {
               'certificate-authority-data': cluster.data.masterAuth?.clusterCaCertificate,
             }),
             server: `https://${endpoint}`,
