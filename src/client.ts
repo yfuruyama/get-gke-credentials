@@ -345,9 +345,9 @@ export class ClusterClient {
       'clusters': [
         {
           cluster: {
-            // ...(!connectGatewayEndpoint && !isDNSBasedEndpoint && {
-            //   'certificate-authority-data': cluster.data.masterAuth?.clusterCaCertificate,
-            // }),
+            ...(!connectGatewayEndpoint && !isDNSBasedEndpoint && {
+              'certificate-authority-data': cluster.data.masterAuth?.clusterCaCertificate,
+            }),
             server: `https://${endpoint}`,
           },
           name: cluster.data.name,
